@@ -66,6 +66,7 @@ func GetCustomerByIDHandler(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"status": "Id must be number"})
+		return
 	}
 
 	row, err := database.GetCustomerByID(id)
@@ -88,6 +89,7 @@ func UpdateCustomerHandler(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"status": "Id must be number"})
+		return
 	}
 
 	cust := Customer{}
@@ -120,10 +122,12 @@ func DeleteCustomerHandler(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"status": "Id must be number"})
+		return
 	}
 	err = database.DeleteCustomer(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"status": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "customer deleted"})
