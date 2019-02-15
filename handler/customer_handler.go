@@ -77,7 +77,7 @@ func GetCustomerByIDHandler(c *gin.Context) {
 	cust := Customer{}
 	err = row.Scan(&cust.ID, &cust.Name, &cust.Email, &cust.Status)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"status": err.Error()})
+		c.JSON(http.StatusNoContent, cust)
 		return
 	}
 
